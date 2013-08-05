@@ -7,6 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "node-gyp rebuild"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sendanor/node-crypt3.git"
+  },
+  "keywords": [
+    "crypt",
+    "password",
+    "md5",
+    "sha256",
+    "sha512",
+    "blowfish",
+    "hash"
+  ],
   "dependencies":{
     "node-gyp": "*"
   },
