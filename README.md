@@ -1,7 +1,9 @@
 node-crypt3
 ===========
 
-[crypt(3)](https://en.wikipedia.org/wiki/Crypt_(C)) for Node.js
+[crypt3link]: https://en.wikipedia.org/wiki/Crypt_(C) "crypt() in C"
+
+[crypt(3)][crypt3link] for Node.js
 
 Installation
 ------------
