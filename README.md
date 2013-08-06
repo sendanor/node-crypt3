@@ -27,10 +27,10 @@ if( crypt('6Xz7sS6fEmnWScMb6Ayf363e5cdqF4Kh', '$1$SrkubyRm$DEQU3KupUxt4yfhbK1HyV
 Example password encoding
 -------------------------
 
-Use `crypt(key[, salt=sha512])`:
+Use `crypt(key[, salt])`:
 
 ```javascript
-console.log( crypt('6Xz7sS6fEmnWScMb6Ayf363e5cdqF4Kh') );                                   // Salt automatically using default SHA512
+console.log( crypt('6Xz7sS6fEmnWScMb6Ayf363e5cdqF4Kh') );                                   // Salt generated automatically using default SHA512
 console.log( crypt('6Xz7sS6fEmnWScMb6Ayf363e5cdqF4Kh', crypt.createHash('md5') ) );         // MD5 salt
 console.log( crypt('6Xz7sS6fEmnWScMb6Ayf363e5cdqF4Kh', crypt.createHash('blowfish') ) );    // Blowfish salt (only some Linux distros)
 console.log( crypt('6Xz7sS6fEmnWScMb6Ayf363e5cdqF4Kh', crypt.createHash('sha256') ) );      // SHA-256
@@ -40,4 +40,4 @@ console.log( crypt('6Xz7sS6fEmnWScMb6Ayf363e5cdqF4Kh', crypt.createHash('sha512'
 Create hashes
 -------------
 
-Use `crypt.createHash(type)` where type is one of `md5`, `blowfish`, `sha256` or `sha512`.
+Use `crypt.createHash([type=sha512])` where type is one of `md5`, `blowfish`, `sha256` or `sha512` (default). 
