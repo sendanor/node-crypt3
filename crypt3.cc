@@ -2,7 +2,7 @@
 
 #include <node.h>
 #include <v8.h>
-
+#include <errno.h>
 #include <unistd.h>		// for crypt if _XOPEN_SOURCE exists
 
 using namespace v8;
@@ -23,8 +23,12 @@ Handle<Value> Method(const Arguments& args) {
 	v8::String::Utf8Value key(args[0]->ToString());
 	v8::String::Utf8Value salt(args[1]->ToString());
 
-	Local<String> res = String::New( crypt(*key, *salt ) );
-	return scope.Close(res);
+	char* res = crypt(*key, *salt);
+	if (res != NULL) {
+		return scope.Close(String::New(res));
+	} else {
+		return ThrowException(node::ErrnoException(errno, "crypt"));
+	}
 }
 
 void init(Handle<Object> exports) {
