@@ -20,9 +20,6 @@
     "blowfish",
     "hash"
   ],
-  "dependencies":{
-    "node-gyp": "*"
-  },
   "author": "Jaakko-Heikki Heusala <jheusala@iki.fi>",
   "license": "MIT",
   "gypfile": true
