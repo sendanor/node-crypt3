@@ -4,20 +4,19 @@
 #include <v8.h>
 #include <errno.h>
 #include <unistd.h>		// for crypt if _XOPEN_SOURCE exists
+#include <nan.h>
 
 using namespace v8;
 
-Handle<Value> Method(const Arguments& args) {
-	HandleScope scope;
+NAN_METHOD(Method) {
+	NanScope();
 
 	if (args.Length() < 2) {
-		ThrowException(Exception::TypeError(String::New("Wrong number of arguments")));
-		return scope.Close(Undefined());
+		return NanThrowTypeError("Wrong number of arguments");
 	}
 
 	if (!args[0]->IsString() || !args[1]->IsString()) {
-		ThrowException(Exception::TypeError(String::New("Wrong arguments")));
-		return scope.Close(Undefined());
+		return NanThrowTypeError("Wrong arguments");
 	}
 
 	v8::String::Utf8Value key(args[0]->ToString());
@@ -25,14 +24,14 @@ Handle<Value> Method(const Arguments& args) {
 
 	char* res = crypt(*key, *salt);
 	if (res != NULL) {
-		return scope.Close(String::New(res));
+		NanReturnValue(NanNew<String>(res));
 	} else {
-		return ThrowException(node::ErrnoException(errno, "crypt"));
+		return NanThrowError(node::ErrnoException(errno, "crypt"));
 	}
 }
 
 void init(Handle<Object> exports) {
-	exports->Set(String::NewSymbol("crypt"), FunctionTemplate::New(Method)->GetFunction());
+	exports->Set(NanNew<String>("crypt"), NanNew<FunctionTemplate>(Method)->GetFunction());
 }
 
 NODE_MODULE(crypt3, init)
