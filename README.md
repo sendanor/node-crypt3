@@ -41,3 +41,8 @@ Create hashes
 -------------
 
 Use `crypt.createSalt([type=sha512])` where type is one of `md5`, `blowfish`, `sha256` or `sha512` (default). 
+
+Commercial Support
+------------------
+
+You can buy commercial support from [Sendanor](http://sendanor.com/software).

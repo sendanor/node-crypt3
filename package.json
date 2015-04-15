@@ -1,6 +1,6 @@
 {
   "name": "crypt3",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Node.js crypt(3) bindings",
   "main": "index.js",
   "scripts": {
