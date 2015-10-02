@@ -1,6 +1,8 @@
 node-crypt3
 ===========
 
+[![Build Status](https://travis-ci.org/rolandpoulter/node-crypt3.svg)](https://travis-ci.org/rolandpoulter/node-crypt3)
+
 [crypt3link]: https://en.wikipedia.org/wiki/Crypt_(C) "crypt() in C"
 
 [crypt(3)][crypt3link] for Node.js
@@ -40,9 +42,4 @@ console.log( crypt('6Xz7sS6fEmnWScMb6Ayf363e5cdqF4Kh', crypt.createSalt('sha512'
 Create hashes
 -------------
 
-Use `crypt.createSalt([type=sha512])` where type is one of `md5`, `blowfish`, `sha256` or `sha512` (default). 
-
-Commercial Support
-------------------
-
-You can buy commercial support from [Sendanor](http://sendanor.com/software).
+Use `crypt.createSalt([type=sha512])` where type is one of `md5`, `blowfish`, `sha256` or `sha512` (default).

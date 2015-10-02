@@ -1,17 +1,28 @@
 /** Node.js Crypt(3) Library */
 
-var salters = {
-	'md5': function() { return '$1$'+require('crypto').randomBytes(10).toString('base64'); },
-	'blowfish': function() { return '$2a$'+require('crypto').randomBytes(10).toString('base64'); },
-	'sha256': function() { return '$5$'+require('crypto').randomBytes(10).toString('base64'); },
-	'sha512': function() { return '$6$'+require('crypto').randomBytes(10).toString('base64'); }
+var crypto = require('crypto'),
+    nativeCrypt3 = require('./build/Release/crypt3').crypt3;
+
+var signitures = {
+  md5: '$1$',
+  blowfish: '$2a$',
+  sha256: '$5$',
+  sha512: '$6$'
 };
 
 function createSalt(type) {
-	type = type || 'sha512';
-	if(!salters[type]) throw new TypeError('Unknown salt type at crypt3.createSalt: ' + type);
-	return salters[type]();
+  type = type || 'sha512';
+
+  if(!signitures[type]) {
+    throw new TypeError('Unknown salt type at crypt3.createSalt: ' + type);
+  }
+
+  return signitures[type] + generateSalt();
 };
+
+function generateSalt() {
+  return crypto.randomBytes(10).toString('base64');
+}
 
 /** Crypt(3) password and data encryption.
  * @param {string} key user's typed password
@@ -20,14 +31,17 @@ function createSalt(type) {
  * @see https://en.wikipedia.org/wiki/Crypt_(C)
  */
 var crypt3 = module.exports = function(key, salt) {
-	salt = salt || createSalt();
-	return require('./build/Release/crypt3').crypt(key, salt);
+  salt = salt || createSalt();
+  return nativeCrypt3(key, salt);
 };
 
-/** Create salt 
+/** Create salt
  * @param {string} type The type of salt: md5, blowfish (only some linux distros), sha256 or sha512. Default is sha512.
  * @returns {string} Generated salt string
  */
 crypt3.createSalt = createSalt;
 
-/* EOF */
+/** Random salt fragment
+ * @returns {string} Random salt string
+ */
+crypt3.randomSaltFragment = generateSalt;
