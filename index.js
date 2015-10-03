@@ -1,11 +1,10 @@
 /** Node.js Crypt(3) Library */
 
 var crypto = require('crypto'),
-    nativeCrypt3 = require('./build/Release/crypt3').crypt3;
+    nativeCrypt3 = require('./build/Release/crypt3');
 
 var signitures = {
   md5: '$1$',
-  blowfish: '$2a$',
   sha256: '$5$',
   sha512: '$6$'
 };
@@ -30,9 +29,9 @@ function generateSalt() {
  * @returns {string} A generated hash in format $id$salt$encrypted
  * @see https://en.wikipedia.org/wiki/Crypt_(C)
  */
-var crypt3 = module.exports = function(key, salt) {
-  salt = salt || createSalt();
-  return nativeCrypt3(key, salt);
+var crypt3 = module.exports = function(key, salt, type) {
+  salt = salt || createSalt(type);
+  return nativeCrypt3.crypt3(key, salt);
 };
 
 /** Create salt
