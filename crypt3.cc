@@ -25,7 +25,7 @@ NAN_METHOD(Method) {
 	if (res != NULL) {
 		info.GetReturnValue().Set(Nan::New<String>(res).ToLocalChecked());
 	} else {
-		return Nan::ThrowError(Nan::NanErrnoException(errno, "crypt"));
+		return Nan::ThrowError(Nan::ErrnoException(errno, "crypt"));
 	}
 }
 
