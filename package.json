@@ -20,7 +20,7 @@
     "blowfish",
     "hash"
   ],
-  "dependencies": { "nan": "1 >=1.6.2" },
+  "dependencies": { "nan": "^2.1.0" },
   "author": "Jaakko-Heikki Heusala <jheusala@iki.fi>",
   "license": "MIT",
   "gypfile": true
