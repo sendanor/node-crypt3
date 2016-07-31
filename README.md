@@ -10,12 +10,47 @@ Installation
 
 Install using `npm install crypt3` and use:
 
+### Promise version using [Q library](https://github.com/kriskowal/q)
+
 ```javascript
-var crypt = require('crypt3');
+var crypt = require('crypt3/q');
 ```
 
-Example password check
-----------------------
+```javascript
+crypt('6Xz7sS6fEmnWScMb6Ayf363e5cdqF4Kh', '$1$SrkubyRm$DEQU3KupUxt4yfhbK1HyV/').then(function(value) {
+	if( value !== '$1$SrkubyRm$DEQU3KupUxt4yfhbK1HyV/' ) {
+		console.error('Access denied!');
+		return;
+	}
+}).fail(function(err) {
+	...
+});
+```
+
+### Async version
+
+```javascript
+var crypt = require('crypt3/async');
+```
+
+```javascript
+crypt('6Xz7sS6fEmnWScMb6Ayf363e5cdqF4Kh', '$1$SrkubyRm$DEQU3KupUxt4yfhbK1HyV/', function(err, value) {
+	if(err) {
+		...
+		return;
+	}
+	if( value !== '$1$SrkubyRm$DEQU3KupUxt4yfhbK1HyV/' ) {
+		console.error('Access denied!');
+		return;
+	}
+});
+```
+
+### Sync version
+
+```javascript
+var crypt = require('crypt3/sync');
+```
 
 ```javascript
 if( crypt('6Xz7sS6fEmnWScMb6Ayf363e5cdqF4Kh', '$1$SrkubyRm$DEQU3KupUxt4yfhbK1HyV/') !== '$1$SrkubyRm$DEQU3KupUxt4yfhbK1HyV/' ) {
@@ -24,8 +59,7 @@ if( crypt('6Xz7sS6fEmnWScMb6Ayf363e5cdqF4Kh', '$1$SrkubyRm$DEQU3KupUxt4yfhbK1HyV
 }
 ```
 
-Example password encoding
--------------------------
+#### Example password encoding
 
 Use `crypt(key[, salt])`:
 

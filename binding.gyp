@@ -9,6 +9,15 @@
           'link_settings': { "libraries": [ "-lcrypt" ] }
         }]
       ]
+    },
+    {
+      "target_name": "crypt3async",
+      "sources": [ "crypt3async.cc" ],
+      "conditions": [
+        ['OS!="mac"', {
+          'link_settings': { "libraries": [ "-lcrypt" ] }
+        }]
+      ]
     }
   ]
 }

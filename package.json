@@ -1,8 +1,8 @@
 {
   "name": "crypt3",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Node.js crypt(3) bindings",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "node test/test.js",
     "install": "node-gyp rebuild"
@@ -22,6 +22,9 @@
   ],
   "dependencies": {
     "nan": "^2.1.0"
+  },
+  "optionalDependencies": {
+    "q": "^1.0.1"
   },
   "author": "Jaakko-Heikki Heusala <jheusala@iki.fi>",
   "license": "MIT",
