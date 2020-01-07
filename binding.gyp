@@ -13,6 +13,7 @@
     {
       "target_name": "crypt3async",
       "sources": [ "crypt3async.cc" ],
+      "include_dirs" : [ "<!(node -e \"require('nan')\")" ],
       "conditions": [
         ['OS!="mac"', {
           'link_settings': { "libraries": [ "-lcrypt" ] }

@@ -5,6 +5,7 @@
  *   Tested in node.js v4.4.2 LTS in Ubuntu Linux
  */
 
+#include <nan.h>
 #include <node.h>
 #include <uv.h>
 #include <iostream>
@@ -67,22 +68,26 @@ namespace asyncAddon {
 	 */
 	static void WorkAsyncComplete(uv_work_t *req,int status) {
 		Isolate * isolate = Isolate::GetCurrent();
-		v8::HandleScope handleScope(isolate);
+                v8::HandleScope handle_scope(isolate);
 		Work *work = static_cast<Work *>(req->data);
+                Local<v8::Context> context = isolate -> GetCurrentContext() ;
+                Local<Value> recv = Undefined( isolate ) ;
+
 
 		const int error = work->error;
 		const char *result = work->result.c_str();
+
 		if(error == 0) {
 			Local<Value> argv[2] = {
 				Undefined(isolate),
-				String::NewFromUtf8(isolate, result)
+				String::NewFromUtf8(isolate, result, v8::NewStringType::kNormal).ToLocalChecked()
 			};
 			// https://stackoverflow.com/questions/13826803/calling-javascript-function-from-a-c-callback-in-v8/28554065#28554065
-			Local<Function>::New(isolate, work->callback)->Call(isolate->GetCurrentContext()->Global(), 2, argv);
+			Local<Function>::New(isolate, work->callback)->Call(context, recv, 2, argv);
 		} else {
-			Local<Value> argv[1] = { String::NewFromUtf8(isolate, result) };
+			Local<Value> argv[1] = { String::NewFromUtf8(isolate, result, v8::NewStringType::kNormal).ToLocalChecked() };
 			// https://stackoverflow.com/questions/13826803/calling-javascript-function-from-a-c-callback-in-v8/28554065#28554065
-			Local<Function>::New(isolate, work->callback)->Call(isolate->GetCurrentContext()->Global(), 1, argv);
+			Local<Function>::New(isolate, work->callback)->Call(context, recv, 1, argv);
 		}
 
 		work->callback.Reset();
@@ -99,20 +104,20 @@ namespace asyncAddon {
 		work->request.data = work;
 
 		if (args.Length() < 3) {
-			isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong number of arguments")));
+			isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong number of arguments", v8::NewStringType::kNormal).ToLocalChecked()));
 			return;
 		}
 
 		if (!args[0]->IsString() || !args[1]->IsString() || !args[2]->IsFunction() ) {
-			isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong arguments")));
+			isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong arguments", v8::NewStringType::kNormal).ToLocalChecked()));
 			return;
 		}
 
-		v8::String::Utf8Value v8key(args[0]->ToString());
+		Nan::Utf8String v8key(args[0]);
 		string key = std::string(*v8key);
 		work->key = key;
 
-		v8::String::Utf8Value v8salt(args[1]->ToString());
+		Nan::Utf8String v8salt(args[1]);
 		string salt = std::string(*v8salt);
 		work->salt = salt;
 
