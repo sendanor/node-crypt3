@@ -1,6 +1,6 @@
 {
   "name": "crypt3",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Node.js crypt(3) bindings",
   "main": "src/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sendanor/node-crypt3.git"
+    "url": "https://github.com/ahmedbodi/node-crypt3.git"
   },
   "keywords": [
     "crypt",
@@ -27,6 +27,7 @@
     "q": "^1.0.1"
   },
   "author": "Jaakko-Heikki Heusala <jheusala@iki.fi>",
+  "maintainer": "Ahmed Bodiwala <ahmedbodi@crypto-expert.com>",
   "license": "MIT",
   "gypfile": true
 }
