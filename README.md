@@ -1,12 +1,10 @@
-node-crypt3
-===========
+# node-crypt3
 
 [crypt3link]: https://en.wikipedia.org/wiki/Crypt_(C) "crypt() in C"
 
 [crypt(3)][crypt3link] for Node.js
 
-Installation
-------------
+## Installation
 
 Install using `npm install crypt3` and use:
 
